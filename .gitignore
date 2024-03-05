@@ -26,6 +26,10 @@ package.json
 
 .eslintrc.js
 
+#Ignore all test files
+
+
+*main.js
 
 #Ignore utils
 utils.js
