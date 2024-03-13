@@ -18,3 +18,10 @@ function printTeacher(firstName: string, lastName: string, location: string): st
 interface printTeacherFunction {
   (firstName: string, lastName: string): string;
 }
+
+interface studentsClass {
+  firstName: string;
+  lastName: string;
+  workOnHomework(): string;
+  displayName(): string;
+}
