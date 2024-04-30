@@ -1,6 +1,6 @@
 const { createServer } = require('http');
 const process = require('process');
-const countStudents = require('./3-read_file_async');
+const { readFile } = require('fs');
 
 /**
  * create a small HTTP server using the http module:
@@ -20,6 +20,42 @@ function homepage(req, res) {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   res.end('Hello Holberton School!');
+}
+
+function countStudents(path) {
+  return new Promise((resolve, reject) => {
+    readFile(path, { encoding: 'utf8' }, (err, info) => {
+      if (err) {
+        reject(new Error('Cannot load the database'));
+      } else {
+        const lines = info.split('\n').filter((line) => line.length > 0);
+
+        const output = [`Number of students: ${lines.length - 1}`];
+
+        const fields = {};
+        let isFirstLine = true;
+        for (const line of lines) {
+          if (isFirstLine) {
+            isFirstLine = false;
+            continue; // eslint-disable-line
+          }
+          const student = line.split(',');
+          if (!fields[student[3]]) {
+            fields[student[3]] = [];
+          }
+          if (student[0] !== 'firstname' && student[3]) {
+            fields[student[3]].push(student[0]);
+          }
+        }
+        for (const field in fields) {
+          if (field) {
+            output.push(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
+          }
+        }
+        resolve(output.join('\n'));
+      }
+    });
+  });
 }
 
 function students(req, res) {
