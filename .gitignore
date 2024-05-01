@@ -32,7 +32,7 @@ package.json
 *main.js
 
 #Ignore utils
-utils.js
+
 
 #Ignore yarn
 yarn.lock
