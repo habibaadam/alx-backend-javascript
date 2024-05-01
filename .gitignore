@@ -12,13 +12,9 @@ node_modules/
 
 # Ignore package lock file
 
-package-lock.json
-
-
 
 # Ignore package.json if necessary
 
-package.json
 
 
 
